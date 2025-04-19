@@ -8,7 +8,7 @@ This project automates the Magento demo website using Cypress, applying Page Obj
 ### 1. Clone the Repo
 ```bash
 git clone <your-repo-url>
-cd magento-cypress-automation
+cd bamboo-qa-assignment/Task 1-UIAutomationWithCypress
 ```
 
 ### 2. Install Dependencies
