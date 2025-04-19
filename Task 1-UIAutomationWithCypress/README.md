@@ -52,6 +52,6 @@ CYPRESS_MAGENTO_EMAIL=test@example.com CYPRESS_MAGENTO_PASSWORD=1234 npm run tes
 ## 📁 Folder Structure
 
 - `cypress/pages` – Page Objects
-- `cypress/integration/tests` – Test cases
+- `cypress/e2e` – Test cases
 - `cypress/fixtures` – Test data
 - `mochawesome-report` – Test reports
