@@ -1,0 +1,223 @@
+{
+	"info": {
+		"_postman_id": "55e58329-5220-4160-84f6-71b577bbd973",
+		"name": "Pet Store API",
+		"description": "Pet Store API Collection for creating and fetching a pet.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44234589",
+		"_collection_link": "https://hamidayub-8001382.postman.co/workspace/Hamid-Ayub's-Workspace~fd94e4b3-7c6c-4a41-85cf-9a30b8f09746/collection/44234589-55e58329-5220-4160-84f6-71b577bbd973?action=share&source=collection_link&creator=44234589"
+	},
+	"item": [
+		{
+			"name": "GET API - Positive",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains valid properties, data types & values\", function () {",
+							"    let jsonData = pm.response.json();",
+							"    //validate properties",
+							"    pm.expect(jsonData).to.have.property('id');",
+							"    pm.expect(jsonData).to.have.property('name');",
+							"    pm.expect(jsonData).to.have.property('status');",
+							"    //validate data types",
+							"    pm.expect(jsonData.id).to.be.a('number');",
+							"    pm.expect(jsonData.name).to.be.a('string');",
+							"    pm.expect(jsonData.status).to.be.a('string');",
+							"    //validate data values",
+							"    pm.expect(jsonData.id).to.eql(1);",
+							"    pm.expect(jsonData.name).to.eql(\"doggie\");",
+							"    pm.expect(jsonData.status).to.eql(\"available\");    ",
+							"",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/1",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET API - Negative",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code should be 404 for non-existent pet\", function () {",
+							"    pm.expect(pm.response.code).to.eql(404);",
+							"});",
+							"",
+							"pm.test(\"Error message is displayed for not found\", function () {",
+							"    let jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"Pet not found\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/99999",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"99999"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST API - Positive",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains correct values\", function () {",
+							"    let jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.eql(1001);",
+							"    pm.expect(jsonData.name).to.eql(\"diggie\");",
+							"    pm.expect(jsonData.status).to.eql(\"available\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 1001,\n  \"name\": \"diggie\",\n  \"status\": \"available\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST API - Negative",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code should not be 200 for invalid data\", function () {",
+							"    pm.expect(pm.response.code).to.not.eql(200);",
+							"});",
+							"",
+							"pm.test(\"Error message is returned for invalid input\", function () {",
+							"    if(pm.response.code !== 200) {",
+							"        console.log(\"Invalid data — API correctly rejected.\");",
+							"    } else {",
+							"        throw new Error(\"API accepted invalid data — Bug!\");",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"abc\",\n  \"name\": \"123\",\n  \"status\": \"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

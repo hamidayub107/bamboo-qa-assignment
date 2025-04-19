@@ -1,0 +1,13 @@
+{
+  "name": "magento-cypress-automation",
+  "version": "1.0.0",
+  "description": "Cypress Automation for Magento Test Site",
+  "scripts": {
+    "test": "cypress run",
+    "test:report": "cypress run --reporter mochawesome"
+  },
+  "devDependencies": {
+    "cypress": "^13.0.0",
+    "mochawesome": "^7.1.3"
+  }
+}
